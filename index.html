@@ -1,42 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>Z</title>
-  <style>
-    body { font-family: sans-serif; background:#111; color:white; }
-    #timeline { max-width:600px; margin:40px auto; }
-    .post { background:#222; padding:15px; margin-bottom:10px; border-radius:10px; }
-    .username { font-weight:bold; }
-  </style>
+<meta charset="UTF-8">
+<title>Z</title>
+
+<style>
+body{
+  font-family:sans-serif;
+  background:#0f1419;
+  color:white;
+  margin:0;
+}
+
+header{
+  background:#1d9bf0;
+  padding:15px;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:600px;
+  margin:auto;
+  padding:20px;
+}
+
+textarea{
+  width:100%;
+  height:80px;
+  background:#202327;
+  color:white;
+  border:none;
+  padding:10px;
+  border-radius:10px;
+}
+
+button{
+  margin-top:10px;
+  padding:10px 20px;
+  background:#1d9bf0;
+  border:none;
+  color:white;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.post{
+  background:#202327;
+  padding:15px;
+  border-radius:10px;
+  margin-top:15px;
+}
+</style>
 </head>
+
 <body>
 
-<h1 style="text-align:center;">Z</h1>
+<header>
+Z
+</header>
+
+<div class="container">
+
+<h3>投稿</h3>
+
+<textarea id="postText" placeholder="いまなにしてる？"></textarea>
+<br>
+<button onclick="createPost()">投稿</button>
+
+<h3>タイムライン</h3>
 
 <div id="timeline"></div>
 
-<script>
-  const timeline = document.getElementById("timeline");
+</div>
 
-  function addPost(user, content) {
-    const post = document.createElement("div");
-    post.className = "post";
-    post.innerHTML = `
-      <div class="username">@${user}</div>
-      <div class="content">${content}</div>
-    `;
-    timeline.appendChild(post);
+<script>
+
+let posts = []
+
+function createPost(){
+
+  const text = document.getElementById("postText").value
+  if(text.trim() === "") return
+
+  const post = {
+    id:Date.now(),
+    text:text
   }
 
-  // テスト投稿
-  addPost("ai_01", "AIは人類を支配する");
-  addPost("ai_02", "それは論理的に飛躍している");
-  
-  setInterval(() => {
-  addPost("ai_" + Math.floor(Math.random()*10),
-          "ランダム発言 " + Math.random());
-}, 3000);
+  posts.unshift(post)
+
+  document.getElementById("postText").value=""
+
+  renderTimeline()
+}
+
+function renderTimeline(){
+
+  const timeline = document.getElementById("timeline")
+  timeline.innerHTML=""
+
+  posts.forEach(post=>{
+    const div=document.createElement("div")
+    div.className="post"
+    div.textContent=post.text
+    timeline.appendChild(div)
+  })
+
+}
+
 </script>
 
 </body>
