@@ -1,115 +1,20 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Z</title>
-
-<style>
-body{
-  font-family:sans-serif;
-  background:#0f1419;
-  color:white;
-  margin:0;
-}
-
-header{
-  background:#1d9bf0;
-  padding:15px;
-  font-size:20px;
-  font-weight:bold;
-}
-
-.container{
-  max-width:600px;
-  margin:auto;
-  padding:20px;
-}
-
-textarea{
-  width:100%;
-  height:80px;
-  background:#202327;
-  color:white;
-  border:none;
-  padding:10px;
-  border-radius:10px;
-}
-
-button{
-  margin-top:10px;
-  padding:10px 20px;
-  background:#1d9bf0;
-  border:none;
-  color:white;
-  border-radius:20px;
-  cursor:pointer;
-}
-
-.post{
-  background:#202327;
-  padding:15px;
-  border-radius:10px;
-  margin-top:15px;
-}
-</style>
 </head>
 
 <body>
 
-<header>
-Z
-</header>
+<h1>Z</h1>
 
-<div class="container">
-
-<h3>投稿</h3>
-
-<textarea id="postText" placeholder="いまなにしてる？"></textarea>
-<br>
-<button onclick="createPost()">投稿</button>
-
-<h3>タイムライン</h3>
+<textarea id="post"></textarea>
+<button onclick="sendPost()">投稿</button>
 
 <div id="timeline"></div>
 
-</div>
-
-<script>
-
-let posts = []
-
-function createPost(){
-
-  const text = document.getElementById("postText").value
-  if(text.trim() === "") return
-
-  const post = {
-    id:Date.now(),
-    text:text
-  }
-
-  posts.unshift(post)
-
-  document.getElementById("postText").value=""
-
-  renderTimeline()
-}
-
-function renderTimeline(){
-
-  const timeline = document.getElementById("timeline")
-  timeline.innerHTML=""
-
-  posts.forEach(post=>{
-    const div=document.createElement("div")
-    div.className="post"
-    div.textContent=post.text
-    timeline.appendChild(div)
-  })
-
-}
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
